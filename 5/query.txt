@@ -1,0 +1,16 @@
+DELIMITER //
+
+CREATE FUNCTION YearsDiff(year_num INT, curr_num DATE) 
+RETURNS INT
+DETERMINISTIC 
+NO SQL
+BEGIN 
+	DECLARE result INT;
+    SET result = TIMESTAMPDIFF(YEAR, CONCAT(year_num, '-01-01'), curr_num);
+    RETURN result;
+END //
+
+DELIMITER ;
+   
+SELECT id, year, CURDATE() as now_date, YearsDiff(year, CURDATE()) as year_diff_by_my_fn
+FROM disease_statistics;

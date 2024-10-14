@@ -1,0 +1,17 @@
+ALTER TABLE disease_statistics
+ADD COLUMN full_date DATE; 
+
+UPDATE disease_statistics
+SET full_date = MAKEDATE(Year, 1);
+
+ALTER TABLE disease_statistics
+ADD COLUMN now_date DATE; 
+
+UPDATE disease_statistics
+SET now_date = CURDATE();
+
+ALTER TABLE disease_statistics
+ADD COLUMN years_difference INT; 
+
+UPDATE disease_statistics
+SET years_difference = TIMESTAMPDIFF(YEAR, full_date, now_date);
